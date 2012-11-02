@@ -10,7 +10,7 @@
 				username = $("#username").val();
 				password = $("#password").val();
 				$.post("<?php echo base_url("user/login");?>",{username:username,password:password}, function(response){
-					if(response=='Successfull'){
+					if(response=='Successful'){
 					  window.location="<?php echo base_url();?>";
 					}else{
 					  alert(response);
