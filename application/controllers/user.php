@@ -13,7 +13,7 @@ class User extends CI_Controller {
 		$password = $this->security->xss_clean($this->input->post('password'));
 		$status = $this->user_model->check_login($username,$password);
 		if($status=='1'){
-		  echo "Successfull";
+		  echo "Successful";
 		}
 		else if($status=='-1'){
 		  echo "Invalid authentication";		

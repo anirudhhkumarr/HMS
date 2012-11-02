@@ -20,7 +20,9 @@
 	<h1><?php echo $this->session->userdata('session_uname');?>,Welcome to Hall Managment System</h1>
 	<h3>You are logged in as <?php echo $this->session->userdata('session_urole');?></h3>
 	<a href="<?php echo base_url('pages/view/register_complain');?>">Register Complain</a><br />
-	<a href="<?php echo base_url('pages/view/send_message');?>">Send Message</a>
+	<a href="<?php echo base_url('pages/view/send_message');?>">Send Message</a><br />
+	<a href="<?php echo base_url('message/view_recieved_messages');?>">View Recieved Messages</a><br />
+	<a href="<?php echo base_url('message/view_sent_messages');?>">View Sent Messages</a><br />
 	<div>
 		<div id="submit"><button>Logout</button></div>
   	</div>

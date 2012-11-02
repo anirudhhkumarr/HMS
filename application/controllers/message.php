@@ -25,5 +25,21 @@ class Message extends CI_Controller {
 			echo "User does not exist. Message sending failed";
 		}
 	}
+	public function view_recieved_messages()
+	{
+		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
+		$data['messages'] = $this->message_model->view_recieved($user);
+		$data['messages_type'] = 'Recieved';
+		$this->load->view('messages',$data);
+	}
+	
+	public function view_sent_messages()
+	{
+		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
+		$data['messages'] = $this->message_model->view_sent($user);
+		$data['messages_type'] = 'Sent';
+		$this->load->view('messages',$data);
+	}
+	
 }
 ?>

@@ -25,9 +25,9 @@
 <body>
     <center>
 	<h1>Send Message</h1>
-	To: <input type="text" id="to" size="100" /><br />	
+	To: <input type="text" id="to" size="50" /><br />	
 	Subject: <input type="text" id="subject" size="100" /><br />
-	Description: <input type="text" id="description" size="10000" /><br />
+	Description: <input type="text" id="description" /><br />
 
 	<div>
 	  <button id="send">Send</button>
