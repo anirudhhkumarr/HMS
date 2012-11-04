@@ -8,6 +8,37 @@ class Message extends CI_Controller {
 		$this->load->model('message_model');
 		$this->load->model('user_model');
 	}
+	public function view($page="view_recieved_messages",$message_id=False)
+	{
+		if($this->session->userdata('session_uemail')){
+			if($message_id){
+				$data['message'] = $this->message_model->get_message($message_id);
+				if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
+					$this->load->view('masthead');			
+					$this->load->view($page,$data);
+				}else{
+					$this->load->view('masthead');					
+					$this->load->view('home');									
+				}
+			}elseif($page=='send_message'){
+				$this->load->view('masthead');
+				$this->load->view($page);
+			}else{
+				if($page=='view_recieved_messages'){
+					$data['messages'] = $this->message_model->get_recieved_messages($this->session->userdata('session_uemail'));
+					$data['message_type'] = 'Recieved';
+				}else{
+					$data['messages'] = $this->message_model->get_sent_messages($this->session->userdata('session_uemail'));
+					$data['message_type'] = 'Sent';					
+				}
+				$this->load->view('masthead');			
+				$this->load->view('message_list',$data);
+			}
+		}else{
+			$this->load->view('masthead');					
+			$this->load->view('prelogin');					
+		}
+	}
 	public function send_message()
 	{
 		$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
@@ -25,20 +56,6 @@ class Message extends CI_Controller {
 			echo "User does not exist. Message sending failed";
 		}
 	}
-	public function view_recieved_messages()
-	{
-		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
-		$data['messages'] = $this->message_model->view_recieved($user);
-		$data['messages_type'] = 'Recieved';
-		$this->load->view('message_list',$data);
-	}
 	
-	public function view_sent_messages()
-	{
-		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
-		$data['messages'] = $this->message_model->view_sent($user);
-		$data['messages_type'] = 'Sent';
-		$this->load->view('message_list',$data);
-	}
 }
 ?>

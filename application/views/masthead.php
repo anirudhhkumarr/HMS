@@ -59,12 +59,32 @@
 	  <li><div id="message_options" class="header_options">
 		<div id="message">Message</div>
 		<div id="message_sub_options" class="header_sub_options hidden">
+		  <a href="<?php echo base_url('message/view/send_message');?>">
 		    <div class="header_sub_option" id="send_message">Send message</div>
-		    <div class="header_sub_option" id="inbox">Inbox</div>
-		    <div class="header_sub_option" id="outbox">Outbox</div>
+		   </a>
+		  <a href="<?php echo base_url('message/view/view_recieved_messages');?>">
+		    <div class="header_sub_option" id="view_recieved_messages">Inbox</div>
+		   </a>
+		  <a href="<?php echo base_url('message/view/view_sent_messages');?>">
+		    <div class="header_sub_option" id="view_sent_messages">Outbox</div>
+		   </a>
 		</div>
 	      </div>
 	  </li>
+	  <?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+		  <li><div  id="fine_options" class="header_options">
+			<div id="fine">Fine</div>
+				<div id="fine_sub_options" class="header_sub_options hidden">
+					<a href="<?php echo base_url('fine/view/view_fines');?>">
+						<div class="header_sub_option" id="view_fines">View Fines</div>
+					<a>
+					<a href="<?php echo base_url('activity/view/propose_fine');?>">
+						<div class="header_sub_option" id="propose_fine">Propose Fine</div>
+					</a>
+			    </div>
+			</div>
+		  </li>
+	  <?php } ?>
 	  <?php if($this->session->userdata('session_urole')=='admin'){?>
 		  <li><div id="admin_options" class="header_options">
 			<div id="Admin">Admin</div>
@@ -78,6 +98,7 @@
 			</div>
 			  </div>
 		  </li>
+		  
 	  <?php }?>
 	  <li><div class="header_options" id="logout">Logout</div></li>
       </ul>
