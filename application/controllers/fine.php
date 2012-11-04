@@ -83,54 +83,52 @@ class Fine extends CI_Controller {
 			}else{
 				echo "Error.Please try again";
 			}
-	}
-	}
-	public function reject_fine()
-	{
-		if($this->session->userdata('session_uemail')){
-			if($this->session->userdata('session_urole')=='staff'){
-				$fine_id = $this->security->xss_clean($this->input->post('fine_id'));
-				$status = $this->fine_model->reject_fine($fine_id);
-				if($status=='1'){
-				  echo "Successful";
-				}
-				else if($status=='-1'){
-				  echo "Error.Please try again";		
-				}	
-			}else{
-				$this->load->view('masthead');						
-				$this->load->view('home');						
-			}
-		}else{
-			$this->load->view('masthead');					
-			$this->load->view('prelogin');							
 		}
 	}
-	public function act_on_fine()
+	public function modify_fine()
 	{
-		if($this->session->userdata('session_uemail')){
-			if($this->session->userdata('session_urole')=='staff'){
-				$fine_id = $this->security->xss_clean($this->input->post('fine_id'));
-				$fine_expected_date = $this->security->xss_clean($this->input->post('fine_expected_date'));
-				$fine_comments = $this->security->xss_clean($this->input->post('fine_comment'));
-				$fine_handler = $this->security->xss_clean($this->input->post('fine_handler'));
-				$status = $this->fine_model->act_on_fine($fine_id,$fine_expected_date,$fine_comments,$fine_handler);
-				if($status=='1'){
-				  echo "Successful";
-				}
-				else if($status=='-1'){
-				  echo "Error.Please try again";		
-				}	
-			}else{
-				$this->load->view('masthead');						
-				$this->load->view('home');						
-			}
+		$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
+		$id = $this->security->xss_clean($this->input->post('fine_id'));
+		$recipient = $this->security->xss_clean($this->input->post('fine_recipient'));
+		$subject = $this->security->xss_clean($this->input->post('fine_subject'));
+		$description = $this->security->xss_clean($this->input->post('fine_description'));
+		$amount = $this->security->xss_clean($this->input->post('fine_amount'));		
+		if (!($id||$sender||$recipient||$subject||$description||$amount)){
+			echo '0';
 		}else{
-			$this->load->view('masthead');					
-			$this->load->view('prelogin');							
+			$status=$this->fine_model->modify_fine($id,$sender,$recipient,$subject,$description,$amount);
+			if($status=='1'){
+				echo "Successful";
+			}else if($status=='2'){
+				echo "Person to fine doesn't exist";
+			}else{
+				echo "Error.Please try again";
+			}
 		}
 	}
-
+	public function approve_fine()
+	{
+		$fine_id=$this->security->xss_clean($this->input->post('fine_id'));
+		$status = $this->fine_model->approve_fine($fine_id);
+		if ($status == 1){
+			echo 'Successful';
+		}
+		else{
+			echo 'Error. Please try again';
+		}
+	}
+	public function delete_fine()
+	{
+		$fine_id=$this->security->xss_clean($this->input->post('fine_id'));
+		$status = $this->fine_model->delete_fine($fine_id);
+	    if ($status == 1){
+			echo 'Successful';
+		}
+		else{
+			echo 'Error. Please try again';
+		}
+	  
+    }
 	public function index()
 	{
 	}
