@@ -1,33 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Hall Management System</title>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			$("#submit").click(function(event){
-				username = $("#username").val();
-				password = $("#password").val();
+  <title>Hall Managment System</title>
+</head>
+<script>
+	$(document).ready(function(){
+		$("#login").click(function(event){
+			username = $("#username").val();
+			password = $("#password").val();
+			if(!username || /^\s*$/.test(username)){
+				alert('Please enter username');
+			}else if(!password || /^\s*$/.test(password)){ 
+				alert('Please enter password');			
+			}else{
 				$.post("<?php echo base_url("user/login");?>",{username:username,password:password}, function(response){
 					if(response=='Successful'){
-					  window.location="<?php echo base_url();?>";
+						window.location="<?php echo base_url();?>";
 					}else{
-					  alert(response);
+					alert(response);
 					}
 				});
-			});
+			}
 		});
-	</script>
-</head>
-<body>
-    <center>
-	<h1>Welcome to Hall Managment System</h1>
-	Username: <input type="text" id="username" size="15" /><br />	
-	Password: <input type="password" id="password" size="15" /><br />
-	<div>
-	  <button id="submit">Login</button>
-	</div>
-    <center>
+	});
+</script>
+      <div id="login_form">
+	  <span>Username:</span> <input type="text" id="username" size="15" /><br />	
+	  <span>Password:</span> <input type="password" id="password" size="15" /><br />
+	  <div id="login" class="button">Login</div>
+      </div>
+    </div>
   </body>
 </html>

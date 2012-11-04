@@ -30,7 +30,7 @@ class Message extends CI_Controller {
 		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
 		$data['messages'] = $this->message_model->view_recieved($user);
 		$data['messages_type'] = 'Recieved';
-		$this->load->view('messages',$data);
+		$this->load->view('message_list',$data);
 	}
 	
 	public function view_sent_messages()
@@ -38,8 +38,7 @@ class Message extends CI_Controller {
 		$user = $this->security->xss_clean($this->session->userdata('session_uemail'));
 		$data['messages'] = $this->message_model->view_sent($user);
 		$data['messages_type'] = 'Sent';
-		$this->load->view('messages',$data);
+		$this->load->view('message_list',$data);
 	}
-	
 }
 ?>

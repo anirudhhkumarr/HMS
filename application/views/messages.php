@@ -17,22 +17,17 @@
 </head>
 <body>
 <center>
-	   <h1><?php echo $messages_type; ?> Messages</h1>
-       <h3>You are logged in as <?php echo $this->session->userdata('session_urole');?></h3>
-       <?php if(sizeof($messages) == 0){
-           echo 'No messages<br>';
-       }
-       foreach($messages as $message){		   
-			echo 'Sender: '.$message['message_sender'];
-			if ($message['message_status']==0){
-				echo '<br><b>Subject: '.$message['message_subject'].'</b>';
-			}
-			else{
-				echo '<br>Subject: '.$message['message_subject'];
-			}
-			echo '<br>Description: '.$message['message_description'];
-			echo '<br>------------------------------------------------<br>';
-       }?>
+		<?php
+		echo 'Sender: '.$message['message_sender'];
+		echo '<br>Recipient'.$message['message_recipient'];
+		echo '<br>Subject: '.$message['message_subject'];
+		echo '<br>Description: '.$message['message_description'];
+       $data = array(
+			'message_status' => 1
+       );
+       this->db->where('message_id'=$message['message_id']);
+       this->db->update('hms_messages',$data);
+       ?>
        <a href="<?php echo base_url();?>">Home</a>        
 </center>
 </body>

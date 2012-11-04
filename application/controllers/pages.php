@@ -17,14 +17,15 @@ class Pages extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function view($page="home"){
-	  if($page == 'home'){
-	    $this->home();
-	  }else{
-	    $this->load->view($page);	  
-	  }
+		if($page == 'home'){
+			$this->home();
+		}else{
+			$this->load->view('masthead');	  			
+			$this->load->view($page);	  
+		}
 	}
 	public function home(){
-
+	  $this->load->view('masthead');	  	
 	  if($this->session->userdata('session_uname') != ''){
 	      $this->load->view('home');	    
 	    }else{
