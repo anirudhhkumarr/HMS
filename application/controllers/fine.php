@@ -8,7 +8,7 @@ class Fine extends CI_Controller {
 		$this->load->model('fine_model');
 		$this->load->model('user_model');
 	}
-	public function view($page='view_fines',$fine_id=False){
+	public function view($page='view_recieved_fines',$fine_id=False){
 		if($this->session->userdata('session_uemail')){
 			if($fine_id){
 				$data['fine'] = $this->fine_model->get_fine($fine_id);
@@ -27,9 +27,14 @@ class Fine extends CI_Controller {
 				$this->load->view($page);
 			}
 			else{
-				$data['fines'] = $this->fine_model->get_fines();			
+				if($page == 'view_proposed_fines' && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'))
+				{
+					$data['fines'] = $this->fine_model->get_proposed_fines();			
+				}else{					
+					$data['fines'] = $this->fine_model->get_recieved_fines($this->session->userdata('session_uemail'));			
+				}
 				$this->load->view('masthead');						
-				$this->load->view($page,$data);			
+				$this->load->view('view_fines',$data);
 			}
 		}else{
 			$this->load->view('masthead');					

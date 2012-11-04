@@ -28,17 +28,14 @@ class fine_model extends CI_Model {
 		if(!$uemail){
 			return '-1';
 		}
-		$sql="SELECT fine_id,fine_subject,fine_sender,fine_status FROM hms_fines WHERE fine_recipient = '".$uemail."'";
+		$sql="SELECT fine_id,fine_subject,fine_sender ,fine_recipient FROM hms_fines WHERE fine_recipient = '".$uemail."' ORDER BY fine_timestamp DESC";
 		$query = $this->db->query($sql);
 		$recieved_fines = $query->result_array();
 		return $recieved_fines;
 	}
-	public function get_sent_fines($uemail=false)
+	public function get_proposed_fines()
 	{
-		if(!$uemail){
-			return '-1';
-		}
-		$sql="SELECT fine_id,fine_subject,fine_recipient,fine_status FROM hms_fines WHERE fine_sender = '".$uemail."'";
+		$sql="SELECT fine_id,fine_subject,fine_recipient,fine_sender FROM hms_fines ORDER BY fine_timestamp DESC";
 		$query = $this->db->query($sql);
 		$sent_fines = $query->result_array();
 		return $sent_fines;
@@ -51,15 +48,7 @@ class fine_model extends CI_Model {
 		$sql="SELECT * FROM hms_fines WHERE fine_id = '".$fine_id."'";
 		$query = $this->db->query($sql);
 		$fine = $query->row_array();
-		if($fine['fine_sender']!=$this->session->userdata('session_uemail')){
-			$data = array(
-				'fine_status' => 1
-			);
-			$this->db->where('fine_id',$fine_id);
-			$this->db->update('hms_fines',$data);
-		}
 		return $fine;
 	}
-
 }
 ?>

@@ -5,7 +5,6 @@
 <body>
 <center>
        <h1><?php echo $message_type; ?> Messages</h1>
-       <h3>You are logged in as <?php echo $this->session->userdata('session_urole');?></h3>
        <?php 
        if(sizeof($messages) == 0){
            echo 'No messages<br>';

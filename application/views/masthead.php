@@ -71,20 +71,24 @@
 		</div>
 	      </div>
 	  </li>
-	  <?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
-		  <li><div  id="fine_options" class="header_options">
-			<div id="fine">Fine</div>
-				<div id="fine_sub_options" class="header_sub_options hidden">
-					<a href="<?php echo base_url('fine/view/view_fines');?>">
-						<div class="header_sub_option" id="view_fines">View Fines</div>
-					<a>
+	  
+	  <li><div  id="fine_options" class="header_options">
+		<div id="fine">Fine</div>
+			<div id="fine_sub_options" class="header_sub_options hidden">
+				<a href="<?php echo base_url('fine/view/view_recieved_fines');?>">
+					<div class="header_sub_option" id="view_recieved_fines">Recieved Fines</div>
+				</a>
+				<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+					<a href="<?php echo base_url('fine/view/view_proposed_fines');?>">
+						<div class="header_sub_option" id="view_fines">Proposed Fines</div>
+					</a>
 					<a href="<?php echo base_url('activity/view/propose_fine');?>">
 						<div class="header_sub_option" id="propose_fine">Propose Fine</div>
 					</a>
-			    </div>
+				<?php } ?>
 			</div>
-		  </li>
-	  <?php } ?>
+		</div>
+	  </li>
 	  <?php if($this->session->userdata('session_urole')=='admin'){?>
 		  <li><div id="admin_options" class="header_options">
 			<div id="Admin">Admin</div>
