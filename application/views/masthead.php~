@@ -48,7 +48,7 @@
 					    echo "Complain(".$notifications['no_complains'].")";
 				      }
 				      else{
-					  echo "Complain()";
+					  echo "Complain";
 				      }
 			
 			?></div>
@@ -91,11 +91,9 @@
 	  <li><div  id="fine_options" class="header_options">
 		<div id="fine">Fine</div>
 			<div id="fine_sub_options" class="header_sub_options hidden">
-				<?php if($this->session->userdata('session_urole')=='student' || $this->session->userdata('session_urole')=='hec'){?>
-					<a href="<?php echo base_url('fine/view/view_recieved_fines');?>">
-						<div class="header_sub_option" id="view_recieved_fines">Recieved Fines</div>
-					</a>
-				<?php }?>
+				<a href="<?php echo base_url('fine/view/view_recieved_fines');?>">
+					<div class="header_sub_option" id="view_recieved_fines">Recieved Fines</div>
+				</a>
 				<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
 					<a href="<?php echo base_url('fine/view/view_proposed_fines');?>">
 						<div class="header_sub_option" id="view_fines">Proposed Fines</div>

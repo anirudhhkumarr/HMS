@@ -16,16 +16,26 @@ class Pages extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('user_model');
+		$this->load->model('notification_model');
+	}
+	 
+	 
 	public function view($page="home"){
 		if($page == 'home'){
 			$this->home();
 		}else{
-			$this->load->view('masthead');	  			
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);	  			
 			$this->load->view($page);	  
 		}
 	}
 	public function home(){
-	  $this->load->view('masthead');	  	
+	  $data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+	  $this->load->view('masthead',$data);	  	
 	  if($this->session->userdata('session_uname') != ''){
 	      $this->load->view('home');	    
 	    }else{
