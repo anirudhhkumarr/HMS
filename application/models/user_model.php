@@ -7,7 +7,7 @@ class User_model extends CI_Model {
 	    $sql="SELECT * FROM hms_users WHERE user_name = '".$username."'";
 	    $query = $this->db->query($sql);
 	    $user = $query->row_array();
-	    if($user['user_password'] == $password){
+	    if($query->num_rows()>0 && $user['user_password'] == $password){
 	      if($user['user_role']=='staff'){
 			$sql="SELECT * FROM hms_staffs WHERE staff_email = '".$user['user_email']."'";
 			$query = $this->db->query($sql);

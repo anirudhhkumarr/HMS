@@ -62,8 +62,15 @@ class Complain extends CI_Controller {
 				$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
 				$status = $this->complain_model->register_complain($subject,$description,$sender);
 				if($status=='1'){
-				  $this->notification_model->set_notifcation('staff','complain');
-				  echo "Successful";
+					$sql="SELECT * FROM hms_staffs WHERE staff_privilege = 1";
+					$query = $this->db->query($sql);
+					$staffs = $query->result_array();
+					if($query->num_rows()>0)
+					{
+						foreach ($staffs as $staff)
+							$this->notification_model->set_notification($staff['staff_email'],'complain');	
+					}
+					echo "Successful";
 				}
 				else if($status=='-1'){
 				  echo "Error.Please try again";		
