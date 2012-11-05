@@ -14,21 +14,6 @@ class Complain extends CI_Controller {
 			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 			if($complain_id){
 				$data['complain'] = $this->complain_model->get_complain($complain_id);
-<<<<<<< HEAD
-				if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff'){
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
-					$this->load->view('masthead',$data);			
-					$this->load->view($page,$data);
-				}else if($page=='act_on_complain' ){
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
-					$this->load->view('masthead',$data);					
-					$this->load->view('home');													
-				}else if($this->session->userdata('session_uemail') == $data['complain']['complain_sender'] || $this->session->userdata('session_urole')=='staff'){
-					
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
-					$this->load->view('masthead',$data);			
-					$this->load->view($page,$data);
-=======
 				if(sizeof($data['complain'])!= 0){
 					if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff' && $this->session->userdata('session_ustaff_privilege')== '1'){
 						$this->load->view('masthead');			
@@ -44,7 +29,6 @@ class Complain extends CI_Controller {
 						$this->load->view('masthead');					
 						$this->load->view('home');									
 					}
->>>>>>> 3f5caa9753518666c27875350fa4cf0b5d2eacbc
 				}else{
 					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);					
