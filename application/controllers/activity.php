@@ -11,13 +11,18 @@ class Activity extends CI_Controller {
 		if($this->session->userdata('session_uemail')){
 			if($activity_id){
 				$data['activity'] = $this->activity_model->get_activity($activity_id);
-				if($this->session->userdata('session_urole')=='hec')
-				{
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
+				if(sizeof($data['activity'])!= 0){
+					if($this->session->userdata('session_urole')=='hec')
+					{
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else{
+						$this->load->view('masthead');			
+						$this->load->view('activity',$data);				
+					}
 				}else{
 					$this->load->view('masthead');			
-					$this->load->view('activity',$data);				
+					$this->load->view('home');				
 				}
 			}elseif($page=='view_activities'){
 				$data['activities'] = $this->activity_model->get_activities();			

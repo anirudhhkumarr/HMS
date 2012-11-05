@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>Send Message</title>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			$("#send").click(function(event){
@@ -22,15 +19,33 @@
 		});
 	</script>
 </head>
-<body>
     <center>
 	<h1>Send Message</h1>
-	To: <input type="text" id="to" size="50" /><br />	
-	Subject: <input type="text" id="subject" size="100" /><br />
-	Description: <input type="text" id="description" /><br />
-
-	<div>
-	  <button id="send">Send</button>
+	<form>
+		<table align="center" cellspacing="0" border="0">
+		   <tbody>
+			   <tr>
+				<td  align="right" width="10%">To:</td>
+				<td  align="left" width="90%">
+					<input type="text" id="to" value="" size="50" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Subject:</td>
+				<td  align="left">
+					<input type="text" id="subject" value="" size="100" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Description:</td>
+				<td  colspan="2">
+					 &nbsp;&nbsp;<textarea id="description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+				  </td>
+			   </tr>
+		   </tbody>
+		</table>
+	</form>
+	<div id="send" class="button">Send</div>
 	</div>
     <center>
   </body>

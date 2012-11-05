@@ -12,12 +12,17 @@ class Fine extends CI_Controller {
 		if($this->session->userdata('session_uemail')){
 			if($fine_id){
 				$data['fine'] = $this->fine_model->get_fine($fine_id);
-				if(($page=='modify_fine') && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
-				}else if($this->session->userdata('session_uemail') == $data['fine']['fine_recipient'] || $this->session->userdata('session_urole')=='warden' || $this->session->userdata('session_urole')=='hec'){
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
+				if(sizeof($data['fine'])!= 0){
+					if(($page=='modify_fine') && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else if($this->session->userdata('session_uemail') == $data['fine']['fine_recipient'] || $this->session->userdata('session_urole')=='warden' || $this->session->userdata('session_urole')=='hec'){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else{
+						$this->load->view('masthead');					
+						$this->load->view('home');									
+					}
 				}else{
 					$this->load->view('masthead');					
 					$this->load->view('home');									

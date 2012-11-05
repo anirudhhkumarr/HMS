@@ -13,9 +13,14 @@ class Message extends CI_Controller {
 		if($this->session->userdata('session_uemail')){
 			if($message_id){
 				$data['message'] = $this->message_model->get_message($message_id);
-				if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
+				if(sizeof($data['meesage'])!= 0){
+					if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else{
+						$this->load->view('masthead');					
+						$this->load->view('home');									
+					}
 				}else{
 					$this->load->view('masthead');					
 					$this->load->view('home');									

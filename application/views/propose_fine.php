@@ -8,7 +8,7 @@
 		$(document).ready(function(){
 			$("#submit").click(function(event){
 				filled=false;
-				$( 'textarea' ).each( function(){
+				$( 'textarea,input' ).each( function(){
 					filled=false;
 					value =$(this).val();
 					if(!(!value || /^\s*$/.test(value))){
@@ -26,7 +26,7 @@
 						$.post("<?php echo base_url("fine/propose_fine");?>",{fine_sender:fine_sender,fine_recipient:fine_recipient,fine_subject:fine_subject,fine_description:fine_description,fine_amount:fine_amount}, function(response){
 							if(response == 'Successful'){
 								alert('fine created');	
-								window.location="<?php echo base_url('fine/view/view_fines');?>";
+								window.location="<?php echo base_url('fine/view/view_proposed_fines');?>";
 							}else{
 								alert(response);
 							}
@@ -42,10 +42,36 @@
 	</script>
 </head>
 	<h1> Propose Fine</h1>
-	Person to Fine : (*)<textarea type="text" id="fine_recipient"></textarea><br />
-	Fine Subject:(*) 	<textarea class="medium" type="text" id="fine_subject" size="100"></textarea><br />
-	Fine Description:(*)  <textarea class="large" type="text" id="fine_description" size="500"></textarea><br />
-	Fine Amount(INR):(*) 	<textarea type="text" id="fine_amount"></textarea><br />
+	<form>
+		<table align="center" cellspacing="0" border="0">
+		   <tbody>
+			   <tr>
+				<td  align="right" width="10%">Person to fine:(*)</td>
+				<td  align="left" width="90%">
+					<input type="text" id="fine_recipient"  size="60" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Subject:(*)</td>
+				<td  align="left">
+					<input type="text" id="fine_subject"  size="100" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Description:(*)</td>
+				<td  colspan="2">
+					 &nbsp;&nbsp;<textarea id="fine_description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+				  </td>
+			   </tr>
+			   <tr>
+				<td  align="right" width="10%">Amount(*)</td>
+				<td  align="left" width="90%">
+					<input type="text" id="fine_amount"  size="10" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+		   </tbody>
+		</table>
+	</form>
 	<div>
 		<div id="submit" class="button">Create</div>
   	</div>

@@ -21,7 +21,7 @@
 			
 			$("#submit").click(function(event){
 				filled=false;
-				$( 'textarea' ).each( function(){
+				$( 'textarea,input' ).each( function(){
 					filled=false;
 					value =$(this).val();
 					if(!(!value || /^\s*$/.test(value))){
@@ -29,6 +29,7 @@
 					}
 				});
 				if(filled){
+					alert('here');
 					activity_type = $("#activity_type").val();
 					activity_subject = $("#activity_subject").val();
 					activity_description = $("#activity_description").val();
@@ -62,17 +63,50 @@
 					}else{
 						alert("Dates provided are not valid");
 					}
+				}else{
+					alert("Please fill all (*) marked fields");
 				}
 			});
 		});
 	</script>
 </head>
 	<h1>Create Activity</h1>
-	Activity Type:    	<textarea class="small" type="text" id="activity_type" size="12"></textarea><br />	
-	Activity Subject: 	<textarea class="medium" type="text" id="activity_subject" size="100"></textarea><br />
-	Activity Description:  <textarea class="large" type="text" id="activity_description" size="500"></textarea><br />
-	Activity Start Time 	<textarea type="text" id="activity_start"></textarea><br />
-	Activity End Time: 	<textarea type="text" id="activity_end"></textarea><br />
+	<form>
+		<table align="center" cellspacing="0" border="0">
+		   <tbody>
+			   <tr>
+				<td  align="right" width="10%">Type:(*)</td>
+				<td  align="left" width="90%">
+					<input type="text" id="activity_type"  size="60" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Subject:(*)</td>
+				<td  align="left">
+					<input type="text" id="activity_subject"  size="100" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Description:(*)</td>
+				<td  colspan="2">
+					 &nbsp;&nbsp;<textarea id="activity_description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+				  </td>
+			   </tr>
+			   <tr>
+				<td  align="right" width="10%">Start Date(*)</td>
+				<td  align="left" width="90%">
+					<input type="text" id="activity_start"  size="10" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right" width="10%">End Date(*)</td>
+				<td  align="left" width="90%">
+					<input type="text" id="activity_end" size="10" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+		   </tbody>
+		</table>
+	</form>
 	<div>
 		<div id="submit" class="button">Create</div>
   	</div>

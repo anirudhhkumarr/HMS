@@ -12,15 +12,21 @@ class Complain extends CI_Controller {
 		if($this->session->userdata('session_uemail')){
 			if($complain_id){
 				$data['complain'] = $this->complain_model->get_complain($complain_id);
-				if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff'){
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
-				}else if($page=='act_on_complain' ){
-					$this->load->view('masthead');					
-					$this->load->view('home');													
-				}else if($this->session->userdata('session_uemail') == $data['complain']['complain_sender'] || $this->session->userdata('session_urole')=='staff'){
-					$this->load->view('masthead');			
-					$this->load->view($page,$data);
+				if(sizeof($data['complain'])!= 0){
+					if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff' && $this->session->userdata('session_ustaff_privilege')== '1'){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else if($page=='act_on_complain'){
+						$this->load->view('masthead');					
+						$this->load->view('home');													
+					}else if($this->session->userdata('session_uemail') == $data['complain']['complain_sender'] || $this->session->userdata('session_urole')=='staff'){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}
+					else{
+						$this->load->view('masthead');					
+						$this->load->view('home');									
+					}
 				}else{
 					$this->load->view('masthead');					
 					$this->load->view('home');									
@@ -66,7 +72,7 @@ class Complain extends CI_Controller {
 	public function reject_complain()
 	{
 		if($this->session->userdata('session_uemail')){
-			if($this->session->userdata('session_urole')=='staff'){
+			if($this->session->userdata('session_urole')=='staff' && $this->session->userdata('session_ustaff_privilege')== '1'){
 				$complain_id = $this->security->xss_clean($this->input->post('complain_id'));
 				$status = $this->complain_model->reject_complain($complain_id);
 				if($status=='1'){
@@ -87,7 +93,7 @@ class Complain extends CI_Controller {
 	public function act_on_complain()
 	{
 		if($this->session->userdata('session_uemail')){
-			if($this->session->userdata('session_urole')=='staff'){
+			if($this->session->userdata('session_urole')=='staff' && $this->session->userdata('session_ustaff_privilege')== '1'){
 				$complain_id = $this->security->xss_clean($this->input->post('complain_id'));
 				$complain_expected_date = $this->security->xss_clean($this->input->post('complain_expected_date'));
 				$complain_comments = $this->security->xss_clean($this->input->post('complain_comment'));
