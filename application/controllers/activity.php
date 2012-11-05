@@ -6,6 +6,7 @@ class Activity extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('activity_model');
+		$this->load->model('notification_model');
 	}
 	public function view($page='view_activities',$activity_id=False){
 		if($this->session->userdata('session_uemail')){
@@ -14,23 +15,28 @@ class Activity extends CI_Controller {
 				if(sizeof($data['activity'])!= 0){
 					if($this->session->userdata('session_urole')=='hec')
 					{
-						$this->load->view('masthead');			
+						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else{
-						$this->load->view('masthead');			
+						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+						$this->load->view('masthead',$data);			
 						$this->load->view('activity',$data);				
 					}
 				}else{
-					$this->load->view('masthead');			
-					$this->load->view('home');				
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);			
+					$this->load->view('home',$data);				
 				}
 			}elseif($page=='view_activities'){
 				$data['activities'] = $this->activity_model->get_activities();			
-				$this->load->view('masthead');			
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);			
 				$this->load->view($page,$data);
 			}
 			else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view($page);			
 			}
 		}else{
@@ -55,11 +61,13 @@ class Activity extends CI_Controller {
 				  echo "Failed Activity Creation";		
 				}
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{
-			$this->load->view('masthead');					
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');							
 		}
 	}
@@ -82,7 +90,8 @@ class Activity extends CI_Controller {
 				  echo "Failed Activity Modification";		
 				}
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{
@@ -104,7 +113,8 @@ class Activity extends CI_Controller {
 				  echo "Failed Activity Deletion";		
 				}
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{

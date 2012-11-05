@@ -14,21 +14,26 @@ class Fine extends CI_Controller {
 				$data['fine'] = $this->fine_model->get_fine($fine_id);
 				if(sizeof($data['fine'])!= 0){
 					if(($page=='modify_fine') && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
-						$this->load->view('masthead');			
+						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else if($this->session->userdata('session_uemail') == $data['fine']['fine_recipient'] || $this->session->userdata('session_urole')=='warden' || $this->session->userdata('session_urole')=='hec'){
-						$this->load->view('masthead');			
+						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else{
-						$this->load->view('masthead');					
+						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+						$this->load->view('masthead',$data);			
 						$this->load->view('home');									
 					}
 				}else{
-					$this->load->view('masthead');					
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);			
 					$this->load->view('home');									
 				}
 			}elseif($page=='propose_fine' &&($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
-				$this->load->view('masthead');			
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);			
 				$this->load->view($page);
 			}
 			else{
@@ -38,7 +43,8 @@ class Fine extends CI_Controller {
 				}else{					
 					$data['fines'] = $this->fine_model->get_recieved_fines($this->session->userdata('session_uemail'));			
 				}
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);			
 				$this->load->view('view_fines',$data);
 			}
 		}else{
@@ -47,29 +53,6 @@ class Fine extends CI_Controller {
 		}
 	}	
 	
-	public function register_fine()
-	{
-		if($this->session->userdata('session_uemail')){
-			if($this->session->userdata('session_urole')=='student' || $this->session->userdata('session_urole')=='hec'){
-				$subject = $this->security->xss_clean($this->input->post('subject'));
-				$description = $this->security->xss_clean($this->input->post('description'));
-				$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
-				$status = $this->fine_model->register_fine($subject,$description,$sender);
-				if($status=='1'){
-				  echo "Successful";
-				}
-				else if($status=='-1'){
-				  echo "Error.Please try again";		
-				}	
-			}else{
-				$this->load->view('masthead');						
-				$this->load->view('home');						
-			}
-		}else{
-			$this->load->view('masthead');					
-			$this->load->view('prelogin');							
-		}
-	}
 	public function propose_fine()
 	{
 		$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
@@ -82,6 +65,7 @@ class Fine extends CI_Controller {
 		}else{
 			$status=$this->fine_model->propose_fine($sender,$recipient,$subject,$description,$amount);
 			if($status=='1'){
+				$this->notification_model->set_notification($recipient,'fine');
 				echo "Successful";
 			}else if($status=='2'){
 				echo "Person to fine doesn't exist";
@@ -103,6 +87,7 @@ class Fine extends CI_Controller {
 		}else{
 			$status=$this->fine_model->modify_fine($id,$sender,$recipient,$subject,$description,$amount);
 			if($status=='1'){
+				$this->notification_model->set_notification($recipient,'fine');
 				echo "Successful";
 			}else if($status=='2'){
 				echo "Person to fine doesn't exist";
