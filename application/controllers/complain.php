@@ -7,35 +7,46 @@ class Complain extends CI_Controller {
 		parent::__construct();
 		$this->load->model('complain_model');
 		$this->load->model('user_model');
+		$this->load->model('notification_model');
 	}
 	public function view($page='view_complains',$complain_id=False){
 		if($this->session->userdata('session_uemail')){
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 			if($complain_id){
 				$data['complain'] = $this->complain_model->get_complain($complain_id);
 				if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff'){
-					$this->load->view('masthead');			
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);			
 					$this->load->view($page,$data);
 				}else if($page=='act_on_complain' ){
-					$this->load->view('masthead');					
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);					
 					$this->load->view('home');													
 				}else if($this->session->userdata('session_uemail') == $data['complain']['complain_sender'] || $this->session->userdata('session_urole')=='staff'){
-					$this->load->view('masthead');			
+					
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);			
 					$this->load->view($page,$data);
 				}else{
-					$this->load->view('masthead');					
+					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					$this->load->view('masthead',$data);					
 					$this->load->view('home');									
 				}
 			}elseif($page=='view_complains'){
+				$this->notification_model->delete_notification('complain');
 				$data['complains'] = $this->complain_model->get_complains();			
-				$this->load->view('masthead');			
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);			
 				$this->load->view($page,$data);
 			}
 			else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view($page);			
 			}
 		}else{
-			$this->load->view('masthead');					
+		      $data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');					
 		}
 	}	
@@ -49,17 +60,20 @@ class Complain extends CI_Controller {
 				$sender = $this->security->xss_clean($this->session->userdata('session_uemail'));
 				$status = $this->complain_model->register_complain($subject,$description,$sender);
 				if($status=='1'){
+				  $this->notification_model->set_notifcation('staff','complain');
 				  echo "Successful";
 				}
 				else if($status=='-1'){
 				  echo "Error.Please try again";		
 				}	
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{
-			$this->load->view('masthead');					
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');							
 		}
 	}
@@ -76,11 +90,13 @@ class Complain extends CI_Controller {
 				  echo "Error.Please try again";		
 				}	
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{
-			$this->load->view('masthead');					
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');							
 		}
 	}
@@ -100,11 +116,13 @@ class Complain extends CI_Controller {
 				  echo "Error.Please try again";		
 				}	
 			}else{
-				$this->load->view('masthead');						
+				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+				$this->load->view('masthead',$data);						
 				$this->load->view('home');						
 			}
 		}else{
-			$this->load->view('masthead');					
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');							
 		}
 	}

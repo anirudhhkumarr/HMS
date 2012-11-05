@@ -48,7 +48,7 @@
 					    echo "Complain(".$notifications['no_complains'].")";
 				      }
 				      else{
-					  echo "Complain()";
+					  echo "Complain";
 				      }
 			
 			?></div>

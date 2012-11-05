@@ -6,7 +6,6 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('admin_model');
-		$this->load->model('notification_model');
 	}
 	public function view($page=False){
 		$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));

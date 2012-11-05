@@ -6,6 +6,7 @@ class User extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('notification_model');
 	}
 	public function login()
 	{
@@ -13,6 +14,7 @@ class User extends CI_Controller {
 		$password = $this->security->xss_clean($this->input->post('password'));
 		$status = $this->user_model->check_login($username,$password);
 		if($status=='1'){
+		
 		  echo "Successful";
 		}
 		else if($status=='-1'){

@@ -6,7 +6,6 @@ class Activity extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('activity_model');
-		$this->load->model('notification_model');
 	}
 	public function view($page='view_activities',$activity_id=False){
 		if($this->session->userdata('session_uemail')){
