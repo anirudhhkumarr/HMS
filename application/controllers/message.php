@@ -15,10 +15,21 @@ class Message extends CI_Controller {
 			if($message_id){
 				  
 				$data['message'] = $this->message_model->get_message($message_id);
+<<<<<<< HEAD
 				if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
 					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);			
 					$this->load->view($page,$data);
+=======
+				if(sizeof($data['meesage'])!= 0){
+					if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
+						$this->load->view('masthead');			
+						$this->load->view($page,$data);
+					}else{
+						$this->load->view('masthead');					
+						$this->load->view('home');									
+					}
+>>>>>>> 3f5caa9753518666c27875350fa4cf0b5d2eacbc
 				}else{
 					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);					

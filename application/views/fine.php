@@ -28,18 +28,61 @@
 </head>
 <body>
 <center>
-       <h1>Fine</h1>
-       <?php 
-		echo '<b>Sender: </b>'.$fine['fine_sender'];
-		echo '<br><b>Recipient: </b>'.$fine['fine_recipient'];
-		echo 'Subject:'.$fine['fine_subject'];
-		echo '<br>Description:'.$fine['fine_description'];
-		echo '<br>Amount:'.$fine['fine_amount'];
-		echo '<br>Timestamp:'.$fine['fine_timestamp'];
-		echo '<a href="'.base_url('fine/view/fine/'.$fine['fine_id']).'">';
-				echo '<br><b>Subject: </b>'.$fine['fine_subject'];
-		echo '</a>';
-		if($fine['fine_status']!=1 && ($this->session->userdata('session_urole')=='warden' || ($this->session->userdata('session_urole')=='hec' && $this->session->userdata('session_uemail')!=$fine['fine_recipient']))){
+   <h1>Fine</h1>
+	<table  width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
+		<tbody>
+			<tr><td height="5" colspan="2" ></td></tr>
+			<tr>
+				<td align="center">
+					<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" bgcolor="#dcdcdc">
+						<tbody>
+							<tr>
+								<td align="right" valign="top" width="20%"><b>Recipient:&nbsp;&nbsp;</b></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_recipient'];?></td>
+							</tr>
+							<tr>
+								<td align="right" valign="top" width="20%"><b>Sender:&nbsp;&nbsp;</b></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_sender'];?></td>
+							</tr>
+							<tr>
+								<td align="right" valign="top" width="20%"><b>Subject:&nbsp;&nbsp;</b></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_subject'];?>;?></td>
+							</tr>
+							<tr>
+								<td align="right" valign="top" width="20%"><b>Amount:&nbsp;&nbsp;</b></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_amount'];?></td>
+							</tr>
+							<tr>
+								<td align="right" valign="top" width="20%"><b>Date:&nbsp;&nbsp;</b></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_timestamp'];?></td>
+							</tr>
+							<?php if($fine['fine_status']==1){?>
+								<tr>
+									<td align="right" valign="top" width="20%"><b>Status:&nbsp;&nbsp;</b></td>
+									<td align="left" valign="top" width="80%">Approved</td>
+								</tr>
+							<? }elseif($fine['fine_status']==0){?>
+								<tr>
+									<td align="right" valign="top" width="20%"><b>Status:&nbsp;&nbsp;</b></td>
+									<td align="left" valign="top" width="80%">Pending</td>
+								</tr>
+							<?php }?>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr><td height="5" colspan="2" ></td></tr>
+		</tbody>
+	</table>
+	<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+		<tbody>
+			<tr>
+				<td align="left"><br><pre><?php echo $fine['fine_description'];?></pre></td>
+			</tr>
+			<tr><td height="5" colspan="2" ></td></tr>
+		</tbody>
+	</table>
+	<?php if($fine['fine_status']!=1 && ($this->session->userdata('session_urole')=='warden' || ($this->session->userdata('session_urole')=='hec' && $this->session->userdata('session_uemail')!=$fine['fine_recipient']))){
 			echo '<br><a href="'.base_url("fine/view/modify_fine/".$fine["fine_id"]).'">';
 			echo '<div class="modify_fine_button button" id="modify_fine_'.$fine["fine_id"].'">Modify</div>';
 			echo '</a>';

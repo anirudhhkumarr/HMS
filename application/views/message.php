@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
        <meta charset="utf-8">
        <title>Message</title>
@@ -9,13 +7,43 @@
                });
        </script>
 </head>
-<center>
-		<?php
-		echo 'Sender: '.$message['message_sender'];
-		echo '<br>Recipient'.$message['message_recipient'];
-		echo '<br>Subject: '.$message['message_subject'];
-		echo '<br>Description: '.$message['message_description'];
-       ?>    
-</center>
+<table  width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
+	<tbody>
+		<tr><td height="5" colspan="2" ></td></tr>
+		<tr>
+			<td align="center">
+				<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" bgcolor="#dcdcdc">
+					<tbody>
+						<tr>
+							<td align="right" valign="top" width="20%"><b>To:&nbsp;&nbsp;</b></td>
+							<td align="left" valign="top" width="80%"><?php echo $message['message_sender'];?></td>
+						</tr>
+						<tr>
+							<td align="right" valign="top" width="20%"><b>From:&nbsp;&nbsp;</b></td>
+							<td align="left" valign="top" width="80%"><?php echo $message['message_recipient'];?></td>
+						</tr>
+						<tr>
+							<td align="right" valign="top" width="20%"><b>Subject:&nbsp;&nbsp;</b></td>
+							<td align="left" valign="top" width="80%"><?php echo $message['message_subject'];?></td>
+						</tr>
+						<tr>
+							<td align="right" valign="top" width="20%"><b>End Date</b></td>
+							<td align="left" valign="top" width="80%"></td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr><td height="5" colspan="2" ></td></tr>
+	</tbody>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+	<tbody>
+		<tr>
+			<td align="left"><br><pre><?php echo $message['message_description'];?></pre></td>
+		</tr>
+		<tr><td height="5" colspan="2" ></td></tr>
+	</tbody>
+</table>
 </body>
 </html>

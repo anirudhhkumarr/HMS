@@ -25,8 +25,24 @@
 </head>
     <center>
 		<h1>Register Complain</h1>
-		<span>Subject: <textarea class="medium" type="text" id="subject" size="100"></textarea><br />	
-		<span>Description: <textarea class="large" type="text" id="description" size="500"></textarea><br />
+		<form>
+			<table align="center" cellspacing="0" border="0">
+			   <tbody>
+				   <tr>
+					<td  align="right">Subject:</td>
+					<td  align="left">
+						<input type="text"  id="subject" value="" size="100" onfocus="alreadyFocused=true;">
+					</td>
+				   </tr>
+				   <tr>
+					<td  align="right">Description:</td>
+					<td  colspan="2">
+						 &nbsp;&nbsp;<textarea  id="description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+					  </td>
+				   </tr>
+				</tbody>
+			</table>
+		</form>
 		<div id="submit" class="button">Submit</button>
 		</div>
     <center>

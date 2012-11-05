@@ -21,7 +21,7 @@
 			
 			$("#submit").click(function(event){
 				filled=false;
-				$( 'textarea' ).each( function(){
+				$( 'textarea,input' ).each( function(){
 					filled=false;
 					value =$(this).val();
 					if(!(!value || /^\s*$/.test(value))){
@@ -64,13 +64,55 @@
 	</script>
 </head>
   <center>
-	<h1>Act on complain</h1>
-	Subject:(*)<textarea class="medium"type="text" disabled="disabled" id="complain_subject"  size="100"><?php echo $complain['complain_subject'];?></textarea><br />
-	Description:(*)  <textarea class="large" type="text" disabled="disabled" id="complain_description" size="500" ><?php echo $complain['complain_description'];?></textarea><br />
-	Complain date:(*) 	<textarea class="small" type="text" disabled="disabled" id="complain_date" ><?php echo $complain['complain_timestamp'];?></textarea><br />
-	Expected date:(*)	<textarea class="small" type="text" id="complain_expected_date"></textarea><br />
-	Comment:(*)	<textarea class="large" type="text" id="complain_comment" size="200"></textarea><br />
-	Handler:(*)  <textarea class="large" type="text" id="complain_handler" size="500"></textarea><br />
+  <h1>Act on complain</h1>
+	<form>
+		<table align="center" cellspacing="0" border="0">
+		   <tbody>
+			   <tr>
+				<td  align="right">Sender:</td>
+				<td  align="left">
+					<input type="text" disabled="disabled"  id="complain_sender" value="<?php echo $complain['complain_sender'];?>" size="50" onfocus="alreadyFocused=true;">
+				</td>
+				</tr>
+				<tr>
+				<td  align="right">Subject:</td>
+				<td  align="left">
+					<input type="text" disabled="disabled"  id="complain_subject" value="<?php echo $complain['complain_description'];?>" size="100" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Description:</td>
+				<td  colspan="2">
+					 &nbsp;&nbsp;<textarea disabled="disabled"  id="complain_description" rows="7" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"><?php echo $complain['complain_subject'];?></textarea><br>
+				  </td>
+			   </tr>
+			   <tr>
+				<td  align="right">Date:</td>
+				<td  align="left">
+					<input type="text" disabled="disabled"  id="complain_date" value="<?php echo $complain['complain_timestamp'];?>" size="20" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Handler(*):</td>
+				<td  align="left">
+					<input type="text" id="complain_handler" value="<?php echo $complain['complain_handler'];?>" size="50" onfocus="alreadyFocused=true;">
+				</td>
+			   </tr>
+			   <tr>
+				<td  align="right">Comments(*):</td>
+				<td  colspan="2">
+					 &nbsp;&nbsp;<textarea id="complain_comment" rows="7" cols="70" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+				  </td>
+			   </tr>
+			   <tr>
+				<td  align="right" width="10%">Expected Date(*):</td>
+				<td  align="left" width="90%">
+					<input type="text" id="complain_expected_date" value="" size="10" onfocus="alreadyFocused=true;"><br>
+				</td>
+			   </tr>
+		   </tbody>
+		</table>
+	</form>
 	<div>
 		<div id="submit" class="button">Submit</div>
   	</div>
