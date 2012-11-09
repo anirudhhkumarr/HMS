@@ -31,6 +31,7 @@
 		});
 	</script>
 </head>
+<body>
   <center>
 	<h1>Update Personal Information</h1>
 	Username:(*)<textarea type="text" disabled="disabled" id="update_uname"  cols="10" rows="1" maxlength="20" size="60"><?php echo $this->session->userdata('session_uname');?></textarea><br />

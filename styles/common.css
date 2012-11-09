@@ -45,15 +45,16 @@ span{
   background:url(../images/banner.jpg)
   top no-repeat;
   height:119px;
+  text-align:center;
   font-family:Georgia, "Times New Roman", Times, serif;
   font-size:40px;
   color:#fff;
-  padding:80px 0px 0px 120px;
+  padding:80px 0px 0px 0px;
 }
 #nav{
-  width:100%;
+  width:110%;
   float:left;
-  padding:10px 15px 0px;
+  padding:10px 10px 0px;
   height:29px;
   background:url(../images/nav-bg.jpg) top repeat-x;
 }
@@ -80,12 +81,12 @@ span{
   z-index:100;
 }
 .header_sub_option{
-  background:green;
+  background:#00CCFF;
   padding:5px 10px;
   cursor:pointer;
 }
 .header_sub_option:hover{
-  background:red;
+  background:#0099FF;
 }
 .table1 {
 	border: 1px solid #666;
