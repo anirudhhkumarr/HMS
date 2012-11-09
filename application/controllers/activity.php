@@ -10,32 +10,28 @@ class Activity extends CI_Controller {
 	}
 	public function view($page='view_activities',$activity_id=False){
 		if($this->session->userdata('session_uemail')){
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 			if($activity_id){
 				$data['activity'] = $this->activity_model->get_activity($activity_id);
 				if(sizeof($data['activity'])!= 0){
 					if($this->session->userdata('session_urole')=='hec')
 					{
-						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else{
-						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 						$this->load->view('masthead',$data);			
 						$this->load->view('activity',$data);				
 					}
 				}else{
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);			
 					$this->load->view('home',$data);				
 				}
 			}elseif($page=='view_activities'){
 				$data['activities'] = $this->activity_model->get_activities();			
-				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 				$this->load->view('masthead',$data);			
 				$this->load->view($page,$data);
 			}
 			else{
-				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 				$this->load->view('masthead',$data);						
 				$this->load->view($page);			
 			}

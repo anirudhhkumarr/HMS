@@ -25,21 +25,20 @@ p{
 .hidden{
   display:none;
 }
+input
+{
+	margin-left:30px;
+}
 textarea{
 	resize:none;
+	width:390px;
+	margin-left:30px;
 }
-textarea.small{
-	height:30px;
-	width:150px;
+span{
+    color: #FFFFFF;
+    font-size: 14px;
 }
-textarea.medium{
-	height:50px;
-	width:300px;
-}
-textarea.large{
-	height:100px;
-	width:500px;
-}
+
 #banner{
   width:100%;
   float:left;
@@ -88,27 +87,35 @@ textarea.large{
 .header_sub_option:hover{
   background:red;
 }
+.table1 {
+	border: 1px solid #666;
+	background: #999;
+}
+.lfloat{
+	float:left;
+}
+.rfloat{
+	float:right;
+}
+.clrflt{
+	clear:both;
+}
+select{
+	margin-left:30px;
+}
+.table2 {
+	border: 1px solid #666;
+	background: #122450;
+	font-size: 18px;
+	word-wrap: break-word;
+}
 #login_form {
     clear: both;
     padding: 60px 300px;
 }
-span{
-    color: #FFFFFF;
-    font-size: 14px;
-}
-textarea{
-	resize:none;
-	width:400px;
-}
 #container{
 	clear:both;
 	padding-top:70px;
-}
-.textarea1{
-	height:30px;
-}
-.textarea2{
-	height:100px;
 }
 .button{
     height:20px;
@@ -116,4 +123,7 @@ textarea{
     background:blue;
     width:40px;
     cursor:pointer;
-}
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	margin-left:30px;

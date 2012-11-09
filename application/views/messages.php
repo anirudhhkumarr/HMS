@@ -6,12 +6,6 @@
        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
        <script>
                $(document).ready(function(){
-                       $("#submit").click(function(event){
-                               $.post("<?php echo base_url("user/logout");?>",{}, function(){                                          
-                                 location.reload();
-                               });
-                       });
-
                });
        </script>
 </head>

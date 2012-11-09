@@ -48,7 +48,7 @@
 					    echo "Complain(".$notifications['no_complains'].")";
 				      }
 				      else{
-					  echo "Complain()";
+					  echo "Complain";
 				      }
 			
 			?></div>
@@ -87,27 +87,46 @@
 		</div>
 	      </div>
 	  </li>
-	  
-	  <li><div  id="fine_options" class="header_options">
-		<div id="fine">Fine</div>
-			<div id="fine_sub_options" class="header_sub_options hidden">
-				<?php if($this->session->userdata('session_urole')=='student' || $this->session->userdata('session_urole')=='hec'){?>
-					<a href="<?php echo base_url('fine/view/view_recieved_fines');?>">
-						<div class="header_sub_option" id="view_recieved_fines">Recieved Fines</div>
-					</a>
-				<?php }?>
-				<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
-					<a href="<?php echo base_url('fine/view/view_proposed_fines');?>">
-						<div class="header_sub_option" id="view_fines">Proposed Fines</div>
-					</a>
-					<a href="<?php echo base_url('activity/view/propose_fine');?>">
-						<div class="header_sub_option" id="propose_fine">Propose Fine</div>
-					</a>
-				<?php } ?>
+	  <?php if($this->session->userdata('session_urole')=='student' || $this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+		  <li><div  id="fine_options" class="header_options">
+			<div id="fine">Fine</div>
+				<div id="fine_sub_options" class="header_sub_options hidden">
+					<?php if($this->session->userdata('session_urole')=='student' || $this->session->userdata('session_urole')=='hec'){?>
+						<a href="<?php echo base_url('fine/view/view_recieved_fines');?>">
+							<div class="header_sub_option" id="view_recieved_fines">Recieved Fines</div>
+						</a>
+					<?php }?>
+					<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+						<a href="<?php echo base_url('fine/view/view_proposed_fines');?>">
+							<div class="header_sub_option" id="view_fines">Proposed Fines</div>
+						</a>
+						<a href="<?php echo base_url('activity/view/propose_fine');?>">
+							<div class="header_sub_option" id="propose_fine">Propose Fine</div>
+						</a>
+					<?php } ?>
+				</div>
 			</div>
-		</div>
-	  </li>
-	  <?php if($this->session->userdata('session_urole')=='admin'){?>
+		  </li>
+	<?php }?>
+	  <?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+		  <li><div  id="meeting_options" class="header_options">
+			<div id="meeting">Meeting</div>
+				<div id="meeting_sub_options" class="header_sub_options hidden">
+					<a href="<?php echo base_url('meeting/view/view_recieved_meetings');?>">
+						<div class="header_sub_option" id="view_recieved_meetings">View Meetings</div>
+					</a>
+					<a href="<?php echo base_url('meeting/view/view_proposed_meetings');?>">
+						<div class="header_sub_option" id="view_fines">Proposed Meetings</div>
+					</a>
+					<a href="<?php echo base_url('meeting/view/propose_meeting');?>">
+						<div class="header_sub_option" id="propose_fine">Propose Meeting</div>
+					</a>
+				</div>
+			</div>
+		  </li>
+	<?php }?>
+
+	<?php if($this->session->userdata('session_urole')=='admin'){?>
 		  <li><div id="admin_options" class="header_options">
 			<div id="Admin">Admin</div>
 			<div id="admin_sub_options" class="header_sub_options hidden">
@@ -121,6 +140,33 @@
 			  </div>
 		  </li>
 		  
+	  <?php }?>
+	  <?php if($this->session->userdata('session_urole')!= 'admin'){?>
+	  <li><div id="request_options" class="header_options" >
+			<div id="request">Request</div>
+			<div id="request_sub_options" class="header_sub_options hidden">
+				<?php if($this->session->userdata('session_urole')=='student' ||$this->session->userdata('session_urole')=='hec'){?>
+				  <a href="<?php echo base_url('request/view/make_request');?>">
+					<div class="header_sub_option" id="make_request">Make Request</div>
+				  </a>
+				<?php }?>
+				<a href="<?php echo base_url('request/view/view_requests');?>">
+					<div class="header_sub_option" id="view_requests">View Requests</div>
+				</a>
+			</div>
+		</div>
+	  </li>
+	  <?php }?>
+	  <?php if($this->session->userdata('session_urole')!='admin'){?>
+	  <li><div id="personal_info_options" class="header_options" >
+			<div id="personal_info">Personal Info</div>
+			<div id="personal_info_sub_options" class="header_sub_options hidden">
+				<a href="<?php echo base_url('user/view/update_personal_info');?>">
+					<div class="header_sub_option" id="update_personal_info">Update Info</div>
+				</a>
+			</div>
+		</div>
+	  </li>
 	  <?php }?>
 	  <li><div class="header_options" id="logout">Logout</div></li>
       </ul>

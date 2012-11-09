@@ -53,12 +53,12 @@ class Complain_model extends CI_Model {
 	public function act_on_complain($complain_id=False,$complain_expected_date=False,$complain_comments=False,$complain_handler=False)
 	{
 	  if($this->session->userdata('session_urole')== 'staff' && $complain_id && $complain_expected_date && $complain_comments && $complain_handler){
-		$sql="SELECT staff_email FROM hms_staff WHERE staff_email = '".$complain_handler."'";
-		$query=$this->db->where($sql);
-		if($query->num_rows() >0){
+		$sql="SELECT staff_email FROM hms_staffs WHERE staff_email = '".$complain_handler."'";
+		$query=$this->db->query($sql);
+		$result=$query->result_array();
+		if($query->num_rows()>0){
 			$complain_expected_date=explode("/",$complain_expected_date);
 			$complain_expected_date = $complain_expected_date[2]."-".$complain_expected_date[1]."-".$complain_expected_date[0];
-
 			$data = array(
 					'complain_expected_date'=> $complain_expected_date,
 					'complain_comments'=> $complain_comments,
@@ -69,7 +69,7 @@ class Complain_model extends CI_Model {
 			$this->db->update('hms_complains', $data);
 			return '1';
 		}else{
-			return'-1';
+			return '-1';
 		}
 	  }else{
 	    return '-1';

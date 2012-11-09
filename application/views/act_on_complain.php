@@ -18,7 +18,21 @@
 					);
 				}
 			});
-			
+			function ValidateDate(dtValue)
+			{
+				var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+				return dtRegex.test(dtValue);
+			}
+			function isValidEmailAddress(emailAddress) {
+				var email = emailAddress.split('@');
+				if(email[1] == 'iitk.ac.in')
+				{
+					return true;
+				}else{
+					return false;
+				}
+			}
+
 			$("#submit").click(function(event){
 				filled=false;
 				$( 'textarea,input' ).each( function(){
@@ -29,12 +43,14 @@
 					}
 				});
 				if(filled){
-					complain_expected_date = $("#complain_expected_date").val();
+					complain_expected_date =$("#complain_expected_date").val();
 					complain_comment = $("#complain_comment").val();
 					complain_handler = $("#complain_handler").val();
 					complain_id = "<?php echo $complain['complain_id'];?>";
-					var expected_timestamp=Date.parse(complain_expected_date);
-					if (!isNaN(expected_timestamp))
+					if(!isValidEmailAddress(complain_handler))
+					{
+						alert("Complain handler's email id is not valid");												
+					}else if (ValidateDate(complain_expected_date))
 					{
 						var today = new Date();
 						var dd = today.getDate();
@@ -107,7 +123,7 @@
 			   <tr>
 				<td  align="right" width="10%">Expected Date(*):</td>
 				<td  align="left" width="90%">
-					<input type="text" id="complain_expected_date" value="" size="10" onfocus="alreadyFocused=true;"><br>
+					<input type="text" id="complain_expected_date"  size="10" onfocus="alreadyFocused=true;"><br>
 				</td>
 			   </tr>
 		   </tbody>

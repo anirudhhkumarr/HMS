@@ -3,18 +3,36 @@
 	<title>Send Message</title>
 	<script>
 		$(document).ready(function(){
-			$("#send").click(function(event){
+			function ValidateDate(dtValue)
+			{
+				var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+				return dtRegex.test(dtValue);
+			}
+			function isValidEmailAddress(emailAddress) {
+				var email = emailAddress.split('@');
+				if(email[1] == 'iitk.ac.in')
+				{
+					return true;
+				}else{
+					return false;
+				}
+			}	
+		$("#send").click(function(event){
 				to = $("#to").val();
 				subject = $("#subject").val();
 				description = $("#description").val();
-				$.post("<?php echo base_url("message/send_message");?>",{to:to,subject:subject,description:description}, function(response){
-					if(response=='Successful'){
-					  alert('Message Sent');
-					  window.location="<?php echo base_url();?>";
-					}else{
-					  alert(response);
-					}
-				});
+				if(!isValidEmailAddress(to)){
+					alert('Email address of recipient is not valid')
+				}else{
+					$.post("<?php echo base_url("message/send_message");?>",{to:to,subject:subject,description:description}, function(response){
+						if(response=='Successful'){
+						  alert('Message Sent');
+						  window.location="<?php echo base_url();?>";
+						}else{
+						  alert(response);
+						}
+					});
+				}
 			});
 		});
 	</script>
@@ -27,19 +45,19 @@
 			   <tr>
 				<td  align="right" width="10%">To:</td>
 				<td  align="left" width="90%">
-					<input type="text" id="to" value="" size="50" onfocus="alreadyFocused=true;"><br>
+					<input type="text" id="to" value="" size="61" maxlength="50" onfocus="alreadyFocused=true;"><br>
 				</td>
 			   </tr>
 			   <tr>
 				<td  align="right">Subject:</td>
 				<td  align="left">
-					<input type="text" id="subject" value="" size="100" onfocus="alreadyFocused=true;">
+					&nbsp;&nbsp;<textarea id="subject" rows="3" cols="10" maxlength="100" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 				</td>
 			   </tr>
 			   <tr>
 				<td  align="right">Description:</td>
 				<td  colspan="2">
-					 &nbsp;&nbsp;<textarea id="description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+					 &nbsp;&nbsp;<textarea id="description" rows="20" maxlength="500" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 				  </td>
 			   </tr>
 		   </tbody>

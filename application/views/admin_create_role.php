@@ -2,12 +2,30 @@
 	<title>Hall Management System</title>
 	<script>
 		$(document).ready(function(){
+			function ValidateDate(dtValue)
+			{
+				var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+				return dtRegex.test(dtValue);
+			}
+			function isValidEmailAddress(emailAddress) {
+				var email = emailAddress.split('@');
+				if(email[1] == 'iitk.ac.in')
+				{
+					return true;
+				}else{
+					return false;
+				}
+			}
 			$("#submit").click(function(event){
 				email= $("#email").val();
-				role = $("#role").val();	
-				$.post("<?php echo base_url("admin/create_role");?>",{email:email,role:role}, function(response){
-					alert(response);
-				});
+				role = $("#role").val();
+				if(!isValidEmailAddress(email)){					
+					$.post("<?php echo base_url("admin/create_role");?>",{email:email,role:role}, function(response){
+						alert(response);
+					});
+				}else{
+					alert('Email address is not valid');				
+				}
 			});
 		});
 	</script>

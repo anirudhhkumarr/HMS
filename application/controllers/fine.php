@@ -11,31 +11,27 @@ class Fine extends CI_Controller {
 	}
 	public function view($page='view_recieved_fines',$fine_id=False){
 		if($this->session->userdata('session_uemail')){
+			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 			if($fine_id){
 				$data['fine'] = $this->fine_model->get_fine($fine_id);
 				if(sizeof($data['fine'])!= 0){
-					if(($page=='modify_fine') && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
-						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
+					if(($page=='modify_fine') && (($this->session->userdata('session_urole')=='hec' && $this->session->userdata('session_uemail')!= $data['fine']['fine_recipient']) || $this->session->userdata('session_urole')=='warden')){
 						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else if($this->session->userdata('session_uemail') == $data['fine']['fine_recipient'] || $this->session->userdata('session_urole')=='warden' || $this->session->userdata('session_urole')=='hec'){
-						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 						$this->load->view('masthead',$data);			
-						$this->load->view($page,$data);
+						$this->load->view('fine',$data);
 					}else{
-						$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 						$this->load->view('masthead',$data);			
 						$this->load->view('home');									
 					}
 				}else{
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);			
 					$this->load->view('home');									
 				}
 			}elseif($page=='propose_fine' &&($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden')){
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);					
-					$this->load->view('home');									
+					$this->load->view($page,$data);									
 				}
 			else{
 				if($page == 'view_proposed_fines' && ($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'))
@@ -44,7 +40,6 @@ class Fine extends CI_Controller {
 				}else{					
 					$data['fines'] = $this->fine_model->get_recieved_fines($this->session->userdata('session_uemail'));			
 				}
-				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 				$this->load->view('masthead',$data);						
 				$this->load->view('view_fines',$data);
 			}

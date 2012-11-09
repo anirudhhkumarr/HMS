@@ -31,13 +31,13 @@
 				   <tr>
 					<td  align="right">Subject:</td>
 					<td  align="left">
-						<input type="text"  id="subject" value="" size="100" onfocus="alreadyFocused=true;">
+						&nbsp;&nbsp;<textarea  id="subject" rows="3" cols="10" maxlength="100" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 					</td>
 				   </tr>
 				   <tr>
 					<td  align="right">Description:</td>
 					<td  colspan="2">
-						 &nbsp;&nbsp;<textarea  id="description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+						 &nbsp;&nbsp;<textarea  id="description" rows="20" cols="76" maxlength="500" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 					  </td>
 				   </tr>
 				</tbody>

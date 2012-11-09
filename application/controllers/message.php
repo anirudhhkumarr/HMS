@@ -11,25 +11,23 @@ class Message extends CI_Controller {
 	}
 	public function view($page="view_recieved_messages",$message_id=False)
 	{
+		$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 		if($this->session->userdata('session_uemail')){
-			if($message_id){
-				  
+			if($message_id){				  
 				$data['message'] = $this->message_model->get_message($message_id);
-				if(sizeof($data['meesage'])!= 0){
+				if(sizeof($data['message'])!= 0){				
 					if($this->session->userdata('session_uemail') == $data['message']['message_sender'] || $this->session->userdata('session_uemail') == $data['message']['message_recipient']){
-						$this->load->view('masthead');			
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else{
-						$this->load->view('masthead');					
+						$this->load->view('masthead',$data);					
 						$this->load->view('home');									
 					}
 				}else{
-					$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 					$this->load->view('masthead',$data);					
 					$this->load->view('home');									
 				}
 			}elseif($page=='send_message'){
-				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 				$this->load->view('masthead',$data);
 				$this->load->view($page);
 			}else{
@@ -41,12 +39,10 @@ class Message extends CI_Controller {
 					$data['messages'] = $this->message_model->get_sent_messages($this->session->userdata('session_uemail'));
 					$data['message_type'] = 'Sent';					
 				}
-				$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 				$this->load->view('masthead',$data);			
 				$this->load->view('message_list',$data);
 			}
 		}else{
-			$data['notifications']=$this->notification_model->get_notifications($this->session->userdata('session_uemail'));
 			$this->load->view('masthead',$data);					
 			$this->load->view('prelogin');					
 		}

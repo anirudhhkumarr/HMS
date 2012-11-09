@@ -18,7 +18,20 @@
 					);
 				}
 			});
-			
+			function ValidateDate(dtValue)
+			{
+				var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+				return dtRegex.test(dtValue);
+			}
+			function isValidEmailAddress(emailAddress) {
+				var email = emailAddress.split('@');
+				if(email[1] == 'iitk.ac.in')
+				{
+					return true;
+				}else{
+					return false;
+				}
+			}						
 			$("#submit").click(function(event){
 				filled=false;
 				$( 'textarea,input' ).each( function(){
@@ -35,10 +48,7 @@
 					activity_description = $("#activity_description").val();
 					activity_start = $("#activity_start").val();
 					activity_end = $("#activity_end").val();
-					var start_timestamp=Date.parse(activity_start);
-					var end_timestamp=Date.parse(activity_start);
-					valid=false;
-					if (!isNaN(start_timestamp)&&!isNaN(start_timestamp))
+					if (ValidateDate(activity_start)) && ValidateDate(activity_end))
 					{
 						var today = new Date();
 						var dd = today.getDate();
@@ -68,45 +78,48 @@
 		});
 	</script>
 </head>
-	<h1>Modify activity</h1>
-	<form>
-		<table align="center" cellspacing="0" border="0">
-		   <tbody>
-			   <tr>
-				<td  align="right" width="10%">Type:(*)</td>
-				<td  align="left" width="90%">
-					<input type="text" id="activity_type"  value="<?php echo $activity['activity_type'];?>" size="60" onfocus="alreadyFocused=true;"><br>
-				</td>
-			   </tr>
-			   <tr>
-				<td  align="right">Subject:(*)</td>
-				<td  align="left">
-					<input type="text" id="activity_subject"  value="<?php echo $activity['activity_subject'];?>" size="100" onfocus="alreadyFocused=true;">
-				</td>
-			   </tr>
-			   <tr>
-				<td  align="right">Description:(*)</td>
-				<td  colspan="2">
-					 &nbsp;&nbsp;<textarea id="activity_description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"><?php echo $activity['activity_description'];?></textarea><br>
-				  </td>
-			   </tr>
-			   <tr>
-				<td  align="right" width="10%">Start Date(*)</td>
-				<td  align="left" width="90%">
-					<input type="text" id="activity_start"  size="10" value="<?php echo $activity['activity_startdate'];?>" onfocus="alreadyFocused=true;"><br>
-				</td>
-			   </tr>
-			   <tr>
-				<td  align="right" width="10%">End Date(*)</td>
-				<td  align="left" width="90%">
-					<input type="text" id="activity_end" size="10" value="<?php echo $activity['activity_enddate'];?>" onfocus="alreadyFocused=true;"><br>
-				</td>
-			   </tr>
-		   </tbody>
-		</table>
-	</form>
-	<div>
-		<div id="submit" class="button">Modify</div>
-  	</div>
-</body>
+	<center>
+		<h1>Modify activity</h1>
+		<form>
+			<table align="center" cellspacing="0" border="0">
+			   <tbody>
+				   <tr>
+					<td  align="right" width="10%">Type:(*)</td>
+					<td  align="left" width="90%">
+						<input type="text" id="activity_type"  maxlength="12" value="<?php echo $activity['activity_type'];?>" size="60" onfocus="alreadyFocused=true;"><br>
+					</td>
+				   </tr>
+				   <tr>
+					<td  align="right">Subject:(*)</td>
+					<td  align="left">
+						<textarea type="text" id="activity_subject"   rows="5" cols="10" maxlength="100" onfocus="alreadyFocused=true;"><?php echo $activity['activity_subject'];?></textarea>
+					</td>
+				   </tr>
+				   <tr>
+					<td  align="right">Description:(*)</td>
+					<td  colspan="2">
+						 &nbsp;&nbsp;<textarea id="activity_description" rows="20" cols="76" maxlength="500" wrap="virtual" onfocus="alreadyFocused=true;"><?php echo $activity['activity_description'];?></textarea><br>
+					  </td>
+				   </tr>
+				   <tr>
+					<td  align="right" width="10%">Start Date(*)</td>
+					<td  align="left" width="90%">
+						<input type="text" id="activity_start"  size="10" maxlength="10" value="<?php echo $activity['activity_startdate'];?>" onfocus="alreadyFocused=true;"><br>
+					</td>
+				   </tr>
+				   <tr>
+					<td  align="right" width="10%">End Date(*)</td>
+					<td  align="left" width="90%">
+						<input type="text" id="activity_end" size="10" maxlength="10" value="<?php echo $activity['activity_enddate'];?>" onfocus="alreadyFocused=true;"><br>
+					</td>
+				   </tr>
+			   </tbody>
+			</table>
+		</form>
+		<div>
+			<div id="submit" class="button">Modify</div>
+		</div>
+		<br>
+	</center>
+	</body>
 </html>

@@ -5,7 +5,7 @@
 	<tr valign="top">
 		<?php foreach($activities as $activity){?>
 			<tr valign="top">
-				<a href="<?php echo base_url('activity/view/activity/'.$activity['activity_id']);?>">Subject:<?php echo $activity['activity_subject'];?>
+				<a href="<?php echo base_url('activity/view/activity/'.$activity['activity_id']);?>">
 					<td  align="left"><?php echo $activity['activity_subject'];?></td>
 				</a>
 			</tr>

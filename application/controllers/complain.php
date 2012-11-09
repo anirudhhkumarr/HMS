@@ -16,17 +16,17 @@ class Complain extends CI_Controller {
 				$data['complain'] = $this->complain_model->get_complain($complain_id);
 				if(sizeof($data['complain'])!= 0){
 					if($page=='act_on_complain' && $this->session->userdata('session_urole')=='staff' && $this->session->userdata('session_ustaff_privilege')== '1'){
-						$this->load->view('masthead');			
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}else if($page=='act_on_complain'){
-						$this->load->view('masthead');					
+						$this->load->view('masthead',$data);					
 						$this->load->view('home');													
 					}else if($this->session->userdata('session_uemail') == $data['complain']['complain_sender'] || $this->session->userdata('session_urole')=='staff'){
-						$this->load->view('masthead');			
+						$this->load->view('masthead',$data);			
 						$this->load->view($page,$data);
 					}
 					else{
-						$this->load->view('masthead');					
+						$this->load->view('masthead',$data);					
 						$this->load->view('home');									
 					}
 				}else{

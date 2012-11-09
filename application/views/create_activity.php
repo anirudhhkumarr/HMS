@@ -18,7 +18,20 @@
 					);
 				}
 			});
-			
+			function ValidateDate(dtValue)
+			{
+				var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+				return dtRegex.test(dtValue);
+			}
+			function isValidEmailAddress(emailAddress) {
+				var email = emailAddress.split('@');
+				if(email[1] == 'iitk.ac.in')
+				{
+					return true;
+				}else{
+					return false;
+				}
+			}			
 			$("#submit").click(function(event){
 				filled=false;
 				$( 'textarea,input' ).each( function(){
@@ -29,16 +42,12 @@
 					}
 				});
 				if(filled){
-					alert('here');
 					activity_type = $("#activity_type").val();
 					activity_subject = $("#activity_subject").val();
 					activity_description = $("#activity_description").val();
 					activity_start = $("#activity_start").val();
 					activity_end = $("#activity_end").val();
-					var start_timestamp=Date.parse(activity_start);
-					var end_timestamp=Date.parse(activity_start);
-					valid=false;
-					if (!isNaN(start_timestamp)&&!isNaN(start_timestamp))
+					if (ValidateDate(activity_start) && ValidateDate(activity_end))
 					{
 						var today = new Date();
 						var dd = today.getDate();
@@ -70,6 +79,7 @@
 		});
 	</script>
 </head>
+<center>
 	<h1>Create Activity</h1>
 	<form>
 		<table align="center" cellspacing="0" border="0">
@@ -77,38 +87,40 @@
 			   <tr>
 				<td  align="right" width="10%">Type:(*)</td>
 				<td  align="left" width="90%">
-					<input type="text" id="activity_type"  size="60" onfocus="alreadyFocused=true;"><br>
+					<input type="text" id="activity_type"  maxlength="12" size="60" onfocus="alreadyFocused=true;"><br>
 				</td>
 			   </tr>
 			   <tr>
 				<td  align="right">Subject:(*)</td>
 				<td  align="left">
-					<input type="text" id="activity_subject"  size="100" onfocus="alreadyFocused=true;">
+					<textarea id="activity_subject" rows="3" maxlength="100" cols="9" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 				</td>
 			   </tr>
 			   <tr>
 				<td  align="right">Description:(*)</td>
 				<td  colspan="2">
-					 &nbsp;&nbsp;<textarea id="activity_description" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
+					 &nbsp;&nbsp;<textarea id="activity_description" maxlength="500" rows="20" cols="76" wrap="virtual" onfocus="alreadyFocused=true;"></textarea><br>
 				  </td>
 			   </tr>
 			   <tr>
 				<td  align="right" width="10%">Start Date(*)</td>
 				<td  align="left" width="90%">
-					<input type="text" id="activity_start"  size="10" onfocus="alreadyFocused=true;"><br>
+					<input type="text" id="activity_start"  maxlength="10"size="10" onfocus="alreadyFocused=true;"><br>
 				</td>
 			   </tr>
 			   <tr>
 				<td  align="right" width="10%">End Date(*)</td>
 				<td  align="left" width="90%">
-					<input type="text" id="activity_end" size="10" onfocus="alreadyFocused=true;"><br>
+					<input type="text" id="activity_end" size="10" maxlength="10" onfocus="alreadyFocused=true;"><br>
 				</td>
 			   </tr>
 		   </tbody>
 		</table>
 	</form>
-	<div>
+	<div class="button_options">
 		<div id="submit" class="button">Create</div>
   	</div>
+	<br>
+</center>
 </body>
 </html>

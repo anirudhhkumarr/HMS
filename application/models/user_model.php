@@ -17,12 +17,16 @@ class User_model extends CI_Model {
 					   'session_uemail' => $user['user_email'],
 					   'session_urole' => $user['user_role'],
 					   'session_ustaff_privilege' =>$staff['staff_privilege'],
+					   'session_uphoneno' => $user['user_phone_no'],
+					   'session_ulocaladdress' => $user['user_local_address'],				  
 				  );
 			}else{
 				$newdata = array(
                    'session_uname'  => $user['user_name'],
                    'session_uemail' => $user['user_email'],
                    'session_urole' => $user['user_role'],
+                   'session_uphoneno' => $user['user_phone_no'],
+                   'session_ulocaladdress' => $user['user_local_address'],
 				);
 			}
 	      $this->session->set_userdata($newdata);
@@ -33,6 +37,20 @@ class User_model extends CI_Model {
 	  }else{
 	    return '-1';
 	  }
+	}
+	public function update_personal_info($update_uphoneno = FALSE, $update_ulocaladdr = FALSE,$update_uemail=FALSE)
+	{
+	  if($update_uphoneno && $update_ulocaladdr && $update_uemail){
+	    $data = array(
+               'user_phone_no' => $update_uphoneno,
+               'user_local_address' => $update_ulocaladdr
+            );
+	    $this->db->where('user_email', $update_uemail);
+	    $this->db->update('hms_users', $data);
+	      return '1';
+	    }else{
+	      return '-1';
+	    }
 	}
 }
 ?>

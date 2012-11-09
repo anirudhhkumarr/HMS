@@ -2,11 +2,6 @@
 	<title>Complain</title>
 	<script>
 		$(document).ready(function(){
-			$("#submit").click(function(event){
-				$.post("<?php echo base_url("user/logout");?>",{}, function(){					  
-				  location.reload();
-				});
-			});
 			$(".reject_complain").click(function(event){
 				complain_id = $(this).attr('id').replace('reject_complain_','');
 				$.post("<?php echo base_url("complain/reject_complain");?>",{complain_id:complain_id}, function(response){					  
@@ -22,12 +17,12 @@
 </head>
   <center>
 		<h1>Complain</h1>
-		<table  width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
+		<table  class="table1" width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
 			<tbody>
 				<tr><td height="5" colspan="2" ></td></tr>
 				<tr>
 					<td align="center">
-						<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" bgcolor="#dcdcdc">
+						<table  width="100%" cellpadding="0" cellspacing="2" border="0" align="center" >
 							<tbody>
 								<tr>
 									<td align="right" valign="top" width="20%"><b>From:&nbsp;&nbsp;</b></td>
@@ -73,7 +68,7 @@
 				<tr><td height="5" colspan="2" ></td></tr>
 			</tbody>
 		</table>
-		<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+		<table class="table2" width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
 			<tbody>
 				<tr>
 					<td align="left"><br><pre><?php echo $complain['complain_description'];?></pre></td>

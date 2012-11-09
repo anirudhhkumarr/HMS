@@ -29,12 +29,12 @@
 <body>
 <center>
    <h1>Fine</h1>
-	<table  width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
+	<table  class="table1" width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
 		<tbody>
 			<tr><td height="5" colspan="2" ></td></tr>
 			<tr>
 				<td align="center">
-					<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" bgcolor="#dcdcdc">
+					<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" >
 						<tbody>
 							<tr>
 								<td align="right" valign="top" width="20%"><b>Recipient:&nbsp;&nbsp;</b></td>
@@ -74,7 +74,7 @@
 			<tr><td height="5" colspan="2" ></td></tr>
 		</tbody>
 	</table>
-	<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+	<table class="table2" width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
 		<tbody>
 			<tr>
 				<td align="left"><br><pre><?php echo $fine['fine_description'];?></pre></td>
@@ -91,7 +91,6 @@
 				echo '<br><div id="approve" class="button">Approve</div>';
 			}
 		}
-		echo '<br>-------------------------------------<br>';
        ?>
 </center>
 </body>

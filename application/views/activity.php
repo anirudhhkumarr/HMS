@@ -20,12 +20,12 @@
 <body>
   <center>
 	<h1>Activity</h1>
-	<table  width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
+	<table  class="table1" width="100%" cellpadding="1" cellspacing="0" border="0" align="center">
 		<tbody>
 			<tr><td height="5" colspan="2" ></td></tr>
 			<tr>
 				<td align="center">
-					<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center" bgcolor="#dcdcdc">
+					<table width="100%" cellpadding="0" cellspacing="2" border="0" align="center">
 						<tbody>
 							<tr>
 								<td align="right" valign="top" width="20%"><b>Type:&nbsp;&nbsp;</b></td>
@@ -50,7 +50,7 @@
 			<tr><td height="5" colspan="2" ></td></tr>
 		</tbody>
 	</table>
-	<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
+	<table class="table2" width="100%" cellpadding="0" cellspacing="0" align="center" border="0">
 		<tbody>
 			<tr>
 				<td align="left"><br><pre><?php echo $activity['activity_description'];?></pre></td>
@@ -61,13 +61,13 @@
 		<?php if($this->session->userdata('session_urole')=='hec'){?>
 			<br>
 			<br>
+		<div class="button_options">
 			<a href="<?php echo base_url("activity/view/modify_activity/".$activity['activity_id']);?>">
-				<div class="modify_activity button" id="modify_activity_<?php echo $activity['activity_id'];?>">Modify</div>
+				<div class="modify_activity button lfloat" id="modify_activity_<?php echo $activity['activity_id'];?>">Modify</div>
 			</a>
-			<br>
-			<div class="delete_activity button" id="delete_activity_<?php echo $activity['activity_id'];?>">Delete</div>
+			<div class="delete_activity button lfloat" id="delete_activity_<?php echo $activity['activity_id'];?>">Delete</div>
+		</div>
 		<?php }?>
-		<br>--------------------------------------------------<br>
   </center>
 </body>
 </html>
