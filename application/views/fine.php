@@ -46,7 +46,7 @@
 							</tr>
 							<tr>
 								<td align="right" valign="top" width="20%"><b>Subject:&nbsp;&nbsp;</b></td>
-								<td align="left" valign="top" width="80%"><?php echo $fine['fine_subject'];?>;?></td>
+								<td align="left" valign="top" width="80%"><?php echo $fine['fine_subject'];?></td>
 							</tr>
 							<tr>
 								<td align="right" valign="top" width="20%"><b>Amount:&nbsp;&nbsp;</b></td>

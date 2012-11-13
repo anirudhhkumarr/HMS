@@ -108,6 +108,24 @@
 			</div>
 		  </li>
 	<?php }?>
+	
+	<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+		  <li><div  id="budget_options" class="header_options">
+			<div id="budget">Budget</div>
+				<div id="budget_sub_options" class="header_sub_options hidden">
+					<?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
+						<a href="<?php echo base_url('budget/view/view_proposed_budgets');?>">
+							<div class="header_sub_option" id="view_budgets">View Budgets</div>
+						</a>
+						<a href="<?php echo base_url('activity/view/propose_budget');?>">
+							<div class="header_sub_option" id="propose_budget">Propose Budget</div>
+						</a>
+					<?php } ?>
+				</div>
+			</div>
+		  </li>
+	<?php }?>
+	
 	  <?php if($this->session->userdata('session_urole')=='hec' || $this->session->userdata('session_urole')=='warden'){?>
 		  <li><div  id="meeting_options" class="header_options">
 			<div id="meeting">Meeting</div>
